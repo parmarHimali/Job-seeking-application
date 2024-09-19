@@ -1,7 +1,7 @@
 import { catchAsyncError } from "./../middlewares/catchAsyncError.js";
 import ErrorHandler from "../middlewares/error.js";
 import { Job } from "./../models/jobModel.js";
-
+import { Application } from "../models/applicationModel.js";
 export const getAllJobs = catchAsyncError(async (req, res, next) => {
   const jobs = await Job.find({ expired: false });
   res.status(200).json({
@@ -185,6 +185,24 @@ export const updateJob = catchAsyncError(async (req, res, next) => {
   });
 });
 
+// export const deleteJob = catchAsyncError(async (req, res, next) => {
+//   const role = req.user;
+//   if (role === "Job Seeker") {
+//     return next(
+//       new ErrorHandler("Job Seeker is not allowed to use this resources!", 400)
+//     );
+//   }
+//   const { id } = req.params;
+//   const job = await Job.findById(id);
+//   if (!job) {
+//     return next(new ErrorHandler("Oops! job not found.", 404));
+//   }
+//   await job.deleteOne();
+//   res.status(200).json({
+//     success: true,
+//     message: "Job deleted successfully!",
+//   });
+// });
 export const deleteJob = catchAsyncError(async (req, res, next) => {
   const role = req.user;
   if (role === "Job Seeker") {
@@ -197,13 +215,18 @@ export const deleteJob = catchAsyncError(async (req, res, next) => {
   if (!job) {
     return next(new ErrorHandler("Oops! job not found.", 404));
   }
+
+  // Delete all applications associated with the job
+  const applicationsDeleted = await Application.deleteMany({ jobId: id });
+
+  // Delete the job itself
   await job.deleteOne();
+
   res.status(200).json({
     success: true,
-    message: "Job deleted successfully!",
+    message: `Job deleted successfully! ${applicationsDeleted.deletedCount} applications also deleted.`,
   });
 });
-
 export const getSingleJob = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   try {

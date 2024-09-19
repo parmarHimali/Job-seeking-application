@@ -1,9 +1,14 @@
 import React from "react";
 
 const EmployerCard = ({ element, openModal }) => {
+  // // Check if element and element.jobId are valid
+  // if (!element || !element.jobId) {
+
+  //   return <div>Loading...</div>; // You can return a fallback UI like "Loading..." or nothing.
+  // }
+
   return (
     <>
-      {" "}
       <section className="application-detail">
         <div className="container">
           <div className="title" style={{ textAlign: "center" }}>
@@ -32,7 +37,7 @@ const EmployerCard = ({ element, openModal }) => {
             <div className="banner-detail">
               <h4>Job Detail</h4>
               <div>
-                <span>Job Type :</span>{" "}
+                <span>Job Type :</span>
                 <span className="list-jobtype">
                   <ul style={{ marginLeft: "27px" }}>
                     {element.jobId.jobType &&
@@ -48,7 +53,7 @@ const EmployerCard = ({ element, openModal }) => {
               </div>
             </div>
           </div>
-          <div style={{ margin: " 30px auto -20px" }} className="btn-wrapper">
+          <div style={{ margin: "30px auto -20px" }} className="btn-wrapper">
             {element.resume && (
               <button onClick={() => openModal(element.resume)}>
                 View Resume
