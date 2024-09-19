@@ -65,6 +65,11 @@ export const postJob = catchAsyncError(async (req, res, next) => {
       )
     );
   }
+  if (salaryFrom && salaryTo && salaryFrom > salaryTo) {
+    return next(
+      new ErrorHandler("Salary 'to' cannot be less than Salary 'from'.", 400)
+    );
+  }
   const postedBy = req.user._id;
   const job = await Job.create({
     title,

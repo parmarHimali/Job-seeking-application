@@ -25,8 +25,8 @@ const EmployerCard = ({ element, openModal }) => {
               <div>
                 <span>Address:</span> {element.address}
               </div>
-              <div>
-                <span>Cover Letter:</span> {element.coverLetter}
+              <div className="coverletter">
+                <span>Cover Letter:</span> <div>{element.coverLetter}</div>
               </div>
             </div>
             <div className="banner-detail">
@@ -48,7 +48,7 @@ const EmployerCard = ({ element, openModal }) => {
               </div>
             </div>
           </div>
-          <div style={{ margin: " 30px auto -20px" }}>
+          <div style={{ margin: " 30px auto -20px" }} className="btn-wrapper">
             {element.resume && (
               <button onClick={() => openModal(element.resume)}>
                 View Resume

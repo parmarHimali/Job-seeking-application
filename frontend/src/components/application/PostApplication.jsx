@@ -155,7 +155,7 @@ const PostApplication = () => {
           </div>
           <div className="wrapper">
             <div>
-              <label>Select Resume: </label>
+              <label style={{ color: "black" }}>Select Resume: </label>
               <input
                 type="file"
                 accept="application/pdf"

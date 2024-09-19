@@ -17,6 +17,10 @@ const Register = () => {
   const { isAuthorized, setIsAuthorized } = useContext(UserContext);
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!/^\d{10}$/.test(phone)) {
+      toast.error("Please enter a valid 10-digit phone number.");
+      return;
+    }
     try {
       const { data } = await axios.post(
         "http://localhost:4000/api/user/register",
