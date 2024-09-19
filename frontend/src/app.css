@@ -1201,3 +1201,16 @@ tr:hover {
     background-color: var(--blue3);
     color: var(--blue5);
 }
+
+.search-bar {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 30%;
+    padding: 6px 10px;
+    border-radius: 10px;
+}
