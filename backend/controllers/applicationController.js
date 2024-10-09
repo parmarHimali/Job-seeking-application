@@ -122,7 +122,7 @@ export const postApplication = catchAsyncError(async (req, res, next) => {
         user: employerId._id,
         role: "Employer",
       },
-      jobId: job._id, // Make sure to include jobId here
+      jobId: job._id,
     });
 
     await application.save();

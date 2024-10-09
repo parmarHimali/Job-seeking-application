@@ -185,24 +185,6 @@ export const updateJob = catchAsyncError(async (req, res, next) => {
   });
 });
 
-// export const deleteJob = catchAsyncError(async (req, res, next) => {
-//   const role = req.user;
-//   if (role === "Job Seeker") {
-//     return next(
-//       new ErrorHandler("Job Seeker is not allowed to use this resources!", 400)
-//     );
-//   }
-//   const { id } = req.params;
-//   const job = await Job.findById(id);
-//   if (!job) {
-//     return next(new ErrorHandler("Oops! job not found.", 404));
-//   }
-//   await job.deleteOne();
-//   res.status(200).json({
-//     success: true,
-//     message: "Job deleted successfully!",
-//   });
-// });
 export const deleteJob = catchAsyncError(async (req, res, next) => {
   const role = req.user;
   if (role === "Job Seeker") {
