@@ -12,12 +12,12 @@ export const isAuthorized = catchAsyncError(async (req, res, next) => {
     req.user = await User.findById(decoded.id);
     next();
   } catch (error) {
-    console.error("JWT verification failed:", error); // Debug log
+    console.error("JWT verification failed:", error);
     return next(new ErrorHandler("User not authorized", 400));
   }
 });
 
-// console.log("User found:", req.user); // Debug log
+// console.log("User found:", req.user);
 //User found: {
 //   _id: new ObjectId('66976916129f2421c0fc9440'),
 //   _id: new ObjectId('66976916129f2421c0fc9440'),
