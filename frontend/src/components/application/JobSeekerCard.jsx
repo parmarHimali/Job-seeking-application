@@ -31,9 +31,6 @@ const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
               <div>
                 <span>Address:</span> {element.address}
               </div>
-              <div>
-                <span>Cover Letter:</span> {element.coverLetter}
-              </div>
             </div>
             <div className="banner-detail">
               <h4>Job Detail</h4>

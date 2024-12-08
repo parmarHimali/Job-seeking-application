@@ -7,7 +7,6 @@ import { UserContext } from "../../store/UserContext";
 const PostApplication = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [coverLetter, setCoverLetter] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [resume, setResume] = useState(null);
@@ -46,17 +45,11 @@ const PostApplication = () => {
     formData.append("email", email);
     formData.append("phone", phone);
     formData.append("address", address);
-    formData.append("coverLetter", coverLetter);
     formData.append("resume", resume);
     formData.append("jobId", id);
-    console.log("Form Data:", formData); // Check FormData before sending
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
-    console.log(`Resume File Name: ${formData.get("resume").name}`);
 
     try {
-      setLoading(true); // Set loading to true before sending request
+      setLoading(true);
       console.log(id);
       const { data } = await axios.post(
         `http://localhost:4000/api/application/post/${id}`,
@@ -71,7 +64,6 @@ const PostApplication = () => {
 
       setName("");
       setEmail("");
-      setCoverLetter("");
       setPhone("");
       setAddress("");
       setResume(null);
@@ -79,7 +71,7 @@ const PostApplication = () => {
       toast.success(data.message);
       navigateTo("/job/getall");
     } catch (error) {
-      setLoading(false); // Stop loading on error
+      setLoading(false);
       toast.error(error.response?.data?.message || "Something went wrong.");
     }
   };
@@ -93,8 +85,8 @@ const PostApplication = () => {
   return (
     <section className="application">
       <div className="container">
-        <h3>Application Form</h3>
         <form onSubmit={handleApplication}>
+          <h3>Application Form</h3>
           <div className="wrapper">
             <div className="form-control">
               <label>Name: </label>
@@ -142,17 +134,7 @@ const PostApplication = () => {
               ></textarea>
             </div>
           </div>
-          <div className="wrapper">
-            <div className="form-control">
-              <label>Cover Letter: </label>
-              <textarea
-                placeholder="Cover Letter..."
-                value={coverLetter}
-                onChange={(e) => setCoverLetter(e.target.value)}
-                required
-              />
-            </div>
-          </div>
+
           <div className="wrapper">
             <div>
               <label style={{ color: "black" }}>Select Resume: </label>
@@ -161,7 +143,7 @@ const PostApplication = () => {
                 accept="application/pdf"
                 name="resume"
                 onChange={handleFileChange}
-                style={{ width: "100%", marginTop: "10px" }}
+                style={{ width: "100%", marginTop: "10px", color: "black" }}
                 required
               />
             </div>

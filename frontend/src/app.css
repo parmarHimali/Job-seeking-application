@@ -7,6 +7,7 @@
     --blue7: #1c5982;
     --blue8: #EEEEEE;
     --blue9: #a2b7c5;
+    --blue-auth: #c4d4df;
 }
 
 * {
@@ -21,6 +22,13 @@ body {
     background-color: rgb(240, 240, 240);
 }
 
+.loader {
+    width: 100vw;
+    height: 90vh;
+    display: grid;
+    place-items: center;
+}
+
 .heading {
     text-align: center;
     font-size: 25px;
@@ -33,7 +41,7 @@ textarea {
 
 .auth-page {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     max-width: 60vw;
     min-height: 100vh;
@@ -43,22 +51,22 @@ textarea {
 
 .auth-page .container {
     display: flex;
-    background-color: var(--blue9);
+    background-color: var(--blue-auth);
     flex: 1;
     flex-direction: column;
     padding: 28px;
-    border-radius: 10px;
+    border-radius: 5px;
     max-width: 28vw;
     height: fit-content;
 }
 
 .form-control div input,
 .form-control div select {
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 8px 10px;
+    border-radius: 2.5px;
     font-size: 14px;
     border: none;
-    background-color: var(--blue3);
+    background-color: var(--blue8);
     width: 100%;
     margin-top: 5px;
     padding-right: 25px;
@@ -72,8 +80,8 @@ textarea {
 
 .input-wrapper svg {
     position: absolute;
-    right: 3px;
-    top: 7px;
+    right: 5px;
+    top: 11px;
     color: var(--blue5);
     width: 22px;
     height: 22px;
@@ -557,6 +565,7 @@ button:hover {
     align-items: center;
     min-height: calc(100vh - 140px);
     gap: 55px;
+    margin: 30px 0 45px 0;
 }
 
 .job-post .container {
@@ -586,11 +595,12 @@ button:hover {
     justify-content: flex-start;
     align-items: center;
     gap: 17px;
-    background-color: var(--blue3);
-    padding: 3px 10px;
+    background-color: var(--blue8);
+    padding: 8px 10px;
     border-radius: 6px;
-    margin-top: 5px;
-    color: rgb(59, 57, 57);
+    margin-top: 7px;
+    font-size: 14.2px;
+    color: rgb(101, 94, 94);
 }
 
 .job-post .container .wrapper .jobcheck,
@@ -613,12 +623,12 @@ button:hover {
 .wrapper .form-control select,
 textarea {
     width: calc(550px - 32px - 275px);
-    padding: 5px 10px;
+    padding: 8px 10px;
     border-radius: 5px;
     font-size: 14px;
     border: none;
-    background-color: var(--blue3);
-    margin-top: 5px;
+    background-color: var(--blue8);
+    margin-top: 7px;
 }
 
 .wrapper .full input,
@@ -630,6 +640,7 @@ textarea {
 .salary-wrapper {
     display: flex;
     flex-direction: column;
+    color: rgb(101, 94, 94);
 }
 
 .salary-wrapper .salary-type {
@@ -876,11 +887,20 @@ button svg {
 .application-detail .container {
     width: 500px;
     height: max-content;
-    padding: 35px 0;
+    padding: 30px 0 65px 0;
     border-radius: 10px;
     /* background-color: var(--blue9); */
     background-color: #8080803b;
     box-shadow: 2px 3px 2px 1px gray;
+}
+
+.application-detail .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 700px;
+    padding: 20px 0 40px 0;
 }
 
 .job-detail .container h3,
@@ -893,8 +913,8 @@ button svg {
 
 .application-detail .container .banner {
     display: flex;
-    justify-content: space-evenly;
-    align-items: baseline;
+    justify-content: space-between;
+    /* align-items: baseline; */
 }
 
 .application-detail .container .banner .banner-detail h4 {
@@ -971,12 +991,14 @@ button svg {
 .application .container h3 {
     color: var(--blue5);
     font-size: 1.7rem;
-    margin: 20px 0;
+    text-align: center;
+    /* margin: 20px 0; */
 }
 
 .application {
     max-width: 80vw;
     margin: auto;
+    margin-top: 55px;
     height: calc(100vh - 80px);
 }
 
@@ -990,8 +1012,9 @@ button svg {
 .application .container form {
     display: flex;
     justify-content: center;
+    border: 1px solid var(--blue9);
     width: 45%;
-    background-color: var(--blue9);
+    background-color: var(--blue-auth);
     flex-direction: column;
     padding: 30px;
     color: white;
@@ -1020,8 +1043,8 @@ button svg {
 }
 
 .btn-sendapp {
-    background-color: var(--blue4);
-    color: var(--blue5);
+    background-color: var(--blue7);
+    color: var(--blue8);
     font-weight: 500;
     padding: 5px;
     transition: all 0.3s;

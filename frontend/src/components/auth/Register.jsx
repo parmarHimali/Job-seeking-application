@@ -3,28 +3,25 @@ import { UserContext } from "../../store/UserContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { MdOutlineMailOutline, MdPhone } from "react-icons/md";
+import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
 import { ImPencil2 } from "react-icons/im";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
+
   const navigate = useNavigate();
   const { isAuthorized, setIsAuthorized } = useContext(UserContext);
+
   const handleRegister = async (e) => {
     e.preventDefault();
-    if (!/^\d{10}$/.test(phone)) {
-      toast.error("Please enter a valid 10-digit phone number.");
-      return;
-    }
     try {
       const { data } = await axios.post(
         "http://localhost:4000/api/user/register",
-        { name, email, password, phone, role },
+        { name, email, password, role },
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
@@ -34,7 +31,6 @@ const Register = () => {
       setName("");
       setEmail("");
       setPassword("");
-      setPhone("");
       setRole("");
       setIsAuthorized(true);
     } catch (error) {
@@ -62,7 +58,6 @@ const Register = () => {
                 <option value="Employer">Employer</option>
                 <option value="Job Seeker">Job Seeker</option>
               </select>
-              {/* <FaRegUser /> */}
             </div>
           </div>
           <div className="form-control">
@@ -89,18 +84,7 @@ const Register = () => {
               <MdOutlineMailOutline />
             </div>
           </div>
-          <div className="form-control">
-            <label>Phone Number</label>
-            <div className="input-wrapper">
-              <input
-                type="number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="0123456789"
-              />
-              <MdPhone />
-            </div>
-          </div>
+
           <div className="form-control">
             <label>Password</label>
             <div className="input-wrapper">
@@ -120,9 +104,6 @@ const Register = () => {
             Already have an account? <Link to={"/login"}>Login Now</Link>
           </div>
         </form>
-      </div>
-      <div className="banner">
-        <img src="/image/login.jpg" alt="register" />
       </div>
     </div>
   );

@@ -4,8 +4,8 @@ import User from "../models/userModel.js";
 import { sendToken } from "../utils/jwtToken.js";
 
 export const register = catchAsyncError(async (req, res, next) => {
-  const { name, email, phone, role, password } = req.body;
-  if (!name || !email || !phone || !role || !password) {
+  const { name, email, role, password } = req.body;
+  if (!name || !email || !role || !password) {
     return next(new ErrorHandler("Please fill up the entire form"));
   }
   const emailExist = await User.findOne({ email });
@@ -16,7 +16,6 @@ export const register = catchAsyncError(async (req, res, next) => {
   const user = await User.create({
     name,
     email,
-    phone,
     role,
     password,
   });

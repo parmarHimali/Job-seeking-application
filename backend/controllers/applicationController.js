@@ -87,7 +87,7 @@ export const jobSeekerDeleteApplication = catchAsyncError(
 
 export const postApplication = catchAsyncError(async (req, res, next) => {
   try {
-    const { name, email, phone, address, coverLetter } = req.body;
+    const { name, email, phone, address } = req.body;
     const resume = req.file ? req.file.path : null;
 
     // Extract jobId from route parameters
@@ -112,7 +112,6 @@ export const postApplication = catchAsyncError(async (req, res, next) => {
       email,
       phone,
       address,
-      coverLetter,
       resume,
       applicantId: {
         user: applicantId,

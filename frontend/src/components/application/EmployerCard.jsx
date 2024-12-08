@@ -30,9 +30,6 @@ const EmployerCard = ({ element, openModal }) => {
               <div>
                 <span>Address:</span> {element.address}
               </div>
-              <div className="coverletter">
-                <span>Cover Letter:</span> <div>{element.coverLetter}</div>
-              </div>
             </div>
             <div className="banner-detail">
               <h4>Job Detail</h4>

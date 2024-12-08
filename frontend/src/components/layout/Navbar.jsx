@@ -63,11 +63,7 @@ const Navbar = () => {
                   <span>
                     <FaFileAlt />
                   </span>
-                  <span>
-                    {user && user.role === "Employer"
-                      ? "Applicant's Applications"
-                      : "My Applications"}
-                  </span>
+                  <span>Applications</span>
                 </div>
               </Link>
             </li>
@@ -79,7 +75,7 @@ const Navbar = () => {
                       <span>
                         <TiUpload />
                       </span>
-                      <span>Post New Job</span>
+                      <span>Post Job</span>
                     </div>
                   </Link>
                 </li>
@@ -89,7 +85,7 @@ const Navbar = () => {
                       <span>
                         <VscPreview />
                       </span>
-                      <span>View Your Job</span>
+                      <span>View Job</span>
                     </div>
                   </Link>
                 </li>

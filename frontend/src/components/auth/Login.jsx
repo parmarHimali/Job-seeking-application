@@ -91,9 +91,6 @@ const Login = () => {
           </div>
         </form>
       </div>
-      <div className="banner">
-        <img src="/image/login.jpg" alt="login" />
-      </div>
     </div>
   );
 };

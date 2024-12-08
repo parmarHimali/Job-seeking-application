@@ -11,15 +11,17 @@ import NotFound from "./components/notfound/NotFound";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import { Toaster } from "react-hot-toast";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+
 import { UserContext } from "./store/UserContext";
 import "./app.css";
 import PostApplication from "./components/application/PostApplication";
+import Spinner from "./components/Spinner";
 
 function App() {
-  const { isAuthorized, setIsAuthorized, setUser } = useContext(UserContext);
-
+  const { setIsAuthorized, setUser, isAuthorized } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -30,12 +32,17 @@ function App() {
         setUser(response.data.user);
         setIsAuthorized(true);
       } catch (error) {
-        console.log(error);
         setIsAuthorized(false);
+      } finally {
+        setLoading(false);
       }
     };
     fetchUser();
   }, [isAuthorized]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <>

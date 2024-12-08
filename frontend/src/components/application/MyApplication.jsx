@@ -15,7 +15,7 @@ const MyApplications = () => {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    const fetchApplications = (role) => {
+    const fetchApplications = async (role) => {
       const userRole =
         role === "Employer"
           ? "employer/getall"
@@ -23,12 +23,15 @@ const MyApplications = () => {
           ? "jobseeker/getall"
           : "";
 
-      axios
-        .get(`http://localhost:4000/api/application/${userRole}`, {
-          withCredentials: true,
-        })
-        .then((res) => setApplications(res.data.applications))
-        .catch((error) => toast.error(error.response.data.message));
+      try {
+        const res = await axios.get(
+          `http://localhost:4000/api/application/${userRole}`,
+          { withCredentials: true }
+        );
+        setApplications(res.data.applications);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     };
 
     if (user) fetchApplications(user.role);
@@ -41,20 +44,19 @@ const MyApplications = () => {
     window.scrollTo(0, 0);
   }, [isAuthorized, navigateTo]);
 
-  const deleteApplication = (id) => {
-    axios
-      .delete(`http://localhost:4000/api/application/delete/${id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        toast.success(res.data.message);
-        setApplications((prevApplications) =>
-          prevApplications.filter((application) => application._id !== id)
-        );
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+  const deleteApplication = async (id) => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:4000/api/application/delete/${id}`,
+        { withCredentials: true }
+      );
+      toast.success(res.data.message);
+      setApplications((prevApplications) =>
+        prevApplications.filter((application) => application._id !== id)
+      );
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
   const openModal = (fileUrl) => {
@@ -62,50 +64,51 @@ const MyApplications = () => {
     setResumeFileUrl(formattedUrl);
     setModalOpen(true);
   };
-
   const closeModal = () => {
     setModalOpen(false);
   };
 
   return (
     <section className="my-applications">
-      {user && user.role === "Job Seeker" ? (
-        <div className="container">
-          <h1>My Applications</h1>
-          <div className="card">
+      <>
+        {user && user.role === "Job Seeker" ? (
+          <div className="container">
+            <h1>My Applications</h1>
+            <div className="card">
+              {applications.length <= 0 ? (
+                <h4>No Applications Found!</h4>
+              ) : (
+                applications.map((element) => (
+                  <JobSeekerCard
+                    element={element}
+                    key={element._id}
+                    deleteApplication={deleteApplication}
+                    openModal={openModal}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="container">
+            <h1>Applications From Job Seekers</h1>
             {applications.length <= 0 ? (
               <h4>No Applications Found!</h4>
             ) : (
               applications.map((element) => (
-                <JobSeekerCard
+                <EmployerCard
                   element={element}
                   key={element._id}
-                  deleteApplication={deleteApplication}
                   openModal={openModal}
                 />
               ))
             )}
           </div>
-        </div>
-      ) : (
-        <div className="container">
-          <h1>Applications From Job Seekers</h1>
-          {applications.length <= 0 ? (
-            <h4>No Applications Found!</h4>
-          ) : (
-            applications.map((element) => (
-              <EmployerCard
-                element={element}
-                key={element._id}
-                openModal={openModal}
-              />
-            ))
-          )}
-        </div>
-      )}
-      {modalOpen && (
-        <ResumeModel fileUrl={resumeFileUrl} onClose={closeModal} />
-      )}
+        )}
+        {modalOpen && (
+          <ResumeModel fileUrl={resumeFileUrl} onClose={closeModal} />
+        )}
+      </>
     </section>
   );
 };
