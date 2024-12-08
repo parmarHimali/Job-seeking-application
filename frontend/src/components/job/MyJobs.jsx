@@ -8,7 +8,7 @@ import { IoCheckmarkCircle, IoCloseCircle } from "react-icons/io5";
 const MyJobs = () => {
   const [myJobs, setMyJobs] = useState([]);
   const [editMode, setEditMode] = useState(null);
-  const { isAuthorized, user } = useContext(UserContext);
+  const { isAuthorized, user, loading, setLoading } = useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuthorized || (user && user.role !== "Employer")) {
@@ -18,6 +18,7 @@ const MyJobs = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchJobs = async () => {
+      setLoading(true);
       try {
         const { data } = await axios.get(
           "http://localhost:4000/api/job/getMyJobs",
@@ -27,6 +28,8 @@ const MyJobs = () => {
       } catch (error) {
         toast.error(error.response.data.message);
         setMyJobs([]);
+      } finally {
+        setLoading(false);
       }
     };
     fetchJobs();
@@ -58,8 +61,8 @@ const MyJobs = () => {
     const { checked, value } = e.target;
 
     const updatedJobTypes = checked
-      ? [...element.jobType, value] // Add the selected job type
-      : element.jobType.filter((job) => job !== value); // Remove the unselected job type
+      ? [...element.jobType, value]
+      : element.jobType.filter((job) => job !== value);
 
     handleInputChange(element._id, "jobType", updatedJobTypes);
   };
